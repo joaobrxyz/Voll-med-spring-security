@@ -2,6 +2,8 @@ package med.voll.web_application.domain.medico;
 
 import jakarta.transaction.Transactional;
 import med.voll.web_application.domain.RegraDeNegocioException;
+import med.voll.web_application.domain.usuario.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ import java.util.List;
 public class MedicoService {
 
     private final MedicoRepository repository;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     public MedicoService(MedicoRepository repository) {
         this.repository = repository;
@@ -29,6 +34,7 @@ public class MedicoService {
 
         if (dados.id() == null) {
             repository.save(new Medico(dados));
+            usuarioService.salvarUsuario(dados.nome(), dados.email(), dados.crm());
         } else {
             var medico = repository.findById(dados.id()).orElseThrow();
             medico.atualizarDados(dados);

@@ -1,8 +1,6 @@
 package med.voll.web_application.domain.paciente;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -11,7 +9,6 @@ import jakarta.persistence.Table;
 public class Paciente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String email;
@@ -21,7 +18,8 @@ public class Paciente {
     @Deprecated
     public Paciente(){}
 
-    public Paciente(DadosCadastroPaciente dados) {
+    public Paciente(DadosCadastroPaciente dados, Long id) {
+        this.id = id;
         modificarDados(dados);
     }
 

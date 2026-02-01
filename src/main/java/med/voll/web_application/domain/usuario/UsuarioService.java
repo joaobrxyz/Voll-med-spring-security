@@ -33,4 +33,8 @@ public class UsuarioService implements UserDetailsService {
         Usuario usuario = repository.save(new Usuario(nome, email, senhaCriptografada));
         return usuario.getId();
     }
+
+    public void excluir(Long id) {
+        repository.deleteById(id);
+    }
 }

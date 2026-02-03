@@ -28,9 +28,9 @@ public class UsuarioService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("O usuário não foi encontrado"));
     }
 
-    public Long salvarUsuario(String nome, String email, String senha) {
+    public Long salvarUsuario(String nome, String email, String senha, Perfil perfil) {
         String senhaCriptografada = encriptador.encode(senha);
-        Usuario usuario = repository.save(new Usuario(nome, email, senhaCriptografada));
+        Usuario usuario = repository.save(new Usuario(nome, email, senhaCriptografada, perfil));
         return usuario.getId();
     }
 

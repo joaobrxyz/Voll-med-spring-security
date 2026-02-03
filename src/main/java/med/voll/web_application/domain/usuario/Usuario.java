@@ -16,14 +16,17 @@ public class Usuario implements UserDetails {
     private String nome;
     private String email;
     private String senha;
+    @Enumerated(EnumType.STRING)
+    private Perfil perfil;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String senha) {
+    public Usuario(String nome, String email, String senha, Perfil perfil) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.perfil = perfil;
     }
 
     @Override
@@ -71,5 +74,13 @@ public class Usuario implements UserDetails {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
     }
 }

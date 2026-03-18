@@ -39,17 +39,19 @@ public class UsuarioService implements UserDetailsService {
         repository.deleteById(id);
     }
 
-    public void alterarSenha(DadosAlteracaoSenha dados, Usuario logado) {
-        if (!encriptador.matches(dados.senhaAtual(),logado.getPassword())){
-            throw new RegraDeNegocioException("Senha digitada não confere com a senha atual!");
+    public void alterarSenha(DadosAlteracaoSenha dados, Usuario logado){
+        if(!encriptador.matches(dados.senhaAtual(), logado.getPassword())){
+            throw new RegraDeNegocioException("Senha digitada não confere com senha atual!");
         }
 
-        if (!dados.novaSenha().equals(dados.novaSenhaConfirmacao())){
+        if(!dados.novaSenha().equals(dados.novaSenhaConfirmacao())){
             throw new RegraDeNegocioException("Senha e confirmação não conferem!");
         }
 
         String senhaCriptografada = encriptador.encode(dados.novaSenha());
         logado.alterarSenha(senhaCriptografada);
+
+        logado.setSenhaAlterada(true);
 
         repository.save(logado);
     }

@@ -2,6 +2,7 @@
 <html lang="pt"
       xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{template.html}">
 <head>
     <title>Listagem de Médicos</title>
@@ -13,7 +14,7 @@
             <section class="card">
                 <h2 class="title">Listagem de médicos</h2>
 
-                <div class="table-controls">
+                <div class="table-controls" sec:authorize="hasRole('ATENDENTE')">
                     <a href="formulario-medico.html" th:href="@{/medicos/formulario}" class="btn btn-tertiary">
                         <img src="/static/assets/plus.png" th:src="@{/assets/plus.png}" alt="Ícone de adicionar" class="btn-icon">
                         Novo Médico
@@ -27,7 +28,7 @@
                             <th>Email</th>
                             <th>CRM</th>
                             <th>Especialidade</th>
-                            <th>Ações</th>
+                            <th sec:authorize="hasRole('ATENDENTE')">Ações</th>
                         </tr>
                     </thead>
 
@@ -37,7 +38,7 @@
                             <td th:text="${medico.email}"></td>
                             <td th:text="${medico.crm}"></td>
                             <td th:text="${medico.especialidade}"></td>
-                            <td>
+                            <td sec:authorize="hasRole('ATENDENTE')">
                                 <a href="#" class="btn btn-edit" th:href="@{/medicos/formulario?id={id}(id=${medico.id})}" title="Editar">
                                     <img src="/static/assets/edit.svg" th:src="@{/assets/edit.svg}" alt="Editar">
                                 </a>

@@ -2,6 +2,7 @@
 <html lang="pt"
       xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{template.html}">
 <head>
     <title>Listagem de Consultas</title>
@@ -13,7 +14,7 @@
             <section class="card">
                 <h2 class="title">Listagem de consultas</h2>
 
-                <div class="table-controls">
+                <div class="table-controls" sec:authorize="!hasRole('MEDICO')">
                     <a href="formulario-consulta.html" th:href="@{/consultas/formulario}" class="btn btn-tertiary">
                         <img src="/static/assets/plus.png" th:src="@{/assets/plus.png}" alt="Ícone de adicionar" class="btn-icon">
                         Nova consulta
@@ -38,7 +39,7 @@
                             <td th:text="${#temporals.format(consulta.data, 'dd/MM/yyyy HH:mm')}"></td>
                             <td  th:text="${consulta.especialidade}"></td>
                             <td>
-                                <a href="#" class="btn btn-icon" th:href="@{/medicos/formulario?id={id}(id=${consulta.id})}" title="Editar">
+                                <a sec:authorize="!hasRole('MEDICO')" href="#" class="btn btn-icon" th:href="@{/medicos/formulario?id={id}(id=${consulta.id})}" title="Editar">
                                     <img src="/static/assets/edit.svg" th:src="@{/assets/edit.svg}" alt="Editar">
                                 </a>
                                 <a href="#deleteModal" class="btn btn-icon" data-toggle="modal" th:data-id="${consulta.id}" data-url="/consultas" title="Excluir">

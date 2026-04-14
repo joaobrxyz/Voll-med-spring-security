@@ -34,6 +34,7 @@ public class Usuario implements UserDetails {
         this.email = email;
         this.senha = senha;
         this.perfil = perfil;
+        this.senhaAlterada = false;
     }
 
     @Override
